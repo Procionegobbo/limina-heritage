@@ -1,10 +1,222 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accesso Archivio - Limina Heritage</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #94753d;
+            --light-bg: #f5f5f5;
+            --text-color: #333;
+            --heading-font: 'Cormorant Garamond', serif;
+            --body-font: 'Lato', sans-serif;
+            --error-color: #dc3545;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--body-font);
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--light-bg);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        header h1 {
+            font-family: var(--heading-font);
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .login-container {
+            max-width: 400px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            flex-grow: 1;
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .login-header h2 {
+            font-family: var(--heading-font);
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: var(--body-font);
+            font-size: 1rem;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 2px rgba(148, 117, 61, 0.2);
+        }
+
+        .btn {
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            cursor: pointer;
+            width: 100%;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #806532;
+        }
+
+        .info-text {
+            text-align: center;
+            margin-top: 1.5rem;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 1rem;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem;
+            text-align: center;
+            margin-top: auto;
+        }
+
+        .error-message {
+            color: var(--error-color);
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            display: none;
+        }
+    </style>
 </head>
 <body>
-$END$
+<header>
+    <h1>Limina Heritage</h1>
+    <p>Archivio Storico</p>
+</header>
+
+<main class="login-container">
+    <div class="login-header">
+        <h2>Accesso Archivio</h2>
+        <p>Inserisci le tue credenziali per accedere all'archivio</p>
+    </div>
+
+    <form id="login-form" onsubmit="event.preventDefault(); validateForm();">
+        <div class="form-group">
+            <label for="username">Nome utente</label>
+            <input type="text" id="username" name="username" required>
+            <div class="error-message" id="username-error">Inserisci un nome utente valido</div>
+        </div>
+
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required>
+            <div class="error-message" id="password-error">La password deve essere di almeno 8 caratteri</div>
+        </div>
+
+        <button type="submit" class="btn">Accedi</button>
+    </form>
+
+    <p class="info-text">
+        L'accesso è riservato a studiosi e professionisti del settore.<br>
+        Per richiedere le credenziali, contattare la segreteria.
+    </p>
+
+    <a href="index.html" class="back-link">← Torna alla home</a>
+</main>
+
+<footer>
+    <p>© 2025 Limina Heritage S.r.l. - Tutti i diritti riservati</p>
+    <p style="font-size: 0.9rem; opacity: 0.8; margin-top: 0.5rem;">Disclaimer: Limina Heritage è una società fittizia creata per scopi di gioco di ruolo.</p>
+</footer>
+
+<script>
+    function validateForm() {
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+        const usernameError = document.getElementById('username-error');
+        const passwordError = document.getElementById('password-error');
+        let isValid = true;
+
+        // Reset error messages
+        usernameError.style.display = 'none';
+        passwordError.style.display = 'none';
+
+        // Validate username
+        if (username.length < 3) {
+            usernameError.style.display = 'block';
+            isValid = false;
+        }
+
+        // Validate password
+        if (password.length < 8) {
+            passwordError.style.display = 'block';
+            isValid = false;
+        }
+
+        if (isValid) {
+            // Here you would typically send the data to a server
+            //alert('Accesso in corso... (Nota: questa è una simulazione)');
+            alert('Credenziali non valide');
+            window.location.href = 'index.html';
+        }
+    }
+</script>
 </body>
 </html>
