@@ -159,15 +159,15 @@
 
     <form id="login-form" onsubmit="event.preventDefault(); validateForm();">
         <div class="form-group">
-            <label for="username">Nome utente</label>
+            <label for="username">Codice di accesso</label>
             <input type="text" id="username" name="username" required>
-            <div class="error-message" id="username-error">Inserisci un nome utente valido</div>
+            <div class="error-message" id="username-error">Inserisci un codice valido</div>
         </div>
 
         <div class="form-group">
-            <label for="password">Password</label>
+            <label for="password">Codice password personale</label>
             <input type="password" id="password" name="password" required>
-            <div class="error-message" id="password-error">La password deve essere di almeno 8 caratteri</div>
+            <div class="error-message" id="password-error">Codice password non valido</div>
         </div>
 
         <button type="submit" class="btn">Accedi</button>
@@ -205,7 +205,7 @@
         }
 
         // Validate password
-        if (password.length < 8) {
+        if (password.length != 7) {
             passwordError.style.display = 'block';
             isValid = false;
         }
